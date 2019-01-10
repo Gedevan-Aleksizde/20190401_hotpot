@@ -1,0 +1,509 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass bxjsarticle
+\begin_preamble
+\usepackage{zxjatype}
+\usepackage{float}
+\usepackage{dcolumn}
+\usepackage{enumerate}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage{boites}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{color}
+%
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{myblue}{rgb}{0,0,0.6}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mygray2}{rgb}{0.2,0.2,0.2}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+%
+\setmainfont[Ligatures=TeX]{Palatino Linotype} %欧文フォント族指定
+\setsansfont[Ligatures=TeX]{TeX Gyre Heros} %欧文サンセリフフォント指定
+\setmonofont{TeX Gyre Cursor} %欧文等幅フォント指定
+% \textranwen{ foo! foo! } 任意の文を欧文として処理 できる
+\setjamainfont[BoldFont=TakaoPGothic]{Takao P明朝} %和文フォント指定
+\setjasansfont[BoldFont=TakaoPGothic]{Takao Pゴシック} %和文サンセリフ指定
+\setjamonofont[BoldFont=Migu 1M]{Migu 1M} %和文等幅フォント
+\PassOptionsToPackage{normalem}{ulem}
+\makeatletter
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits} %argumented maximize
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits} %arg.minimize
+\newcommand{\indep}{\mathop{\perp\!\!\!\perp}}% independent
+\newcommand{\plim}{\mathop{\rm plim}} % plim
+\newcommand{\bi}{\boldsymbol}%bold italic
+\providecommand{\definitionname}{DEFINITION}
+\providecommand{\lemmaname}{LEMMA}
+\providecommand{\theoremname}{THEOREM}
+\providecommand{\propositionname}{PROPOSITION}
+\newcolumntype{.}{D{.}{.}{-1}}  %{tabular}{r....}  aligned by dot.
+\lstset{ %algorithm form
+language=R,%
+escapechar=ø,%
+numbers=left,%
+numberstyle=\scriptsize,%
+stepnumber=1,%
+columns=[l]{fullflexible},%
+basicstyle=\ttfamily,%
+numbers=left,%
+breaklines=true,%
+numberstyle=\scriptsize,%
+stepnumber=1,%
+columns=[l]{fullflexible},%
+basicstyle=\ttfamily,%
+identifierstyle={\small},%
+commentstyle={\small\itshape},%
+keywordstyle={\small\bfseries},%
+ndkeywordstyle={\small},%
+stringstyle={\small\ttfamily},%
+%% set left number frame
+frame=single,%
+backgroundcolor=\color[rgb]{0.9,0.9,0.9},%
+%fillcolor=\color{mygray},%
+rulecolor=\color{myblue},%
+framesep=2ex,%
+framexleftmargin=2.5mm,%
+%% set color style
+numberstyle=\tiny\color{mygray2},%
+commentstyle=\color{mygreen},%
+keywordstyle=\color{blue},%
+stringstyle=\color{mymauve},%
+rulecolor=\color{black},%
+showspaces=true,% 連続ブランクをそのまま表示する
+showstringspaces=true % ブランクの存在を記号で表す
+}
+
+\usepackage[xetex] {hyperref}
+\hypersetup{
+unicode=true,%
+bookmarks=true,%
+bookmarksnumbered=true,%bookmark available
+bookmarksopen=true,bookmarksopenlevel=1,%
+breaklinks=false,%
+pdfborder={0 0 0},%
+backref=false,colorlinks=false,%
+pdftitle={},%
+pdfauthor={},%
+pdfsubject={},%
+pdfcreator={},%
+pdfproducer={}
+}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-bytype
+theorems-sec-bytype
+\end_modules
+\maintain_unincluded_children false
+\begin_local_layout
+InsetLayout BreakBox
+LabelFont
+Color               	foreground
+EndFont
+Align 		Block
+Decoration		 Classic
+LyxType		custom
+LatexName		breakbox
+LatexType		environment
+LabelString		breakbox
+MultiPar              	true
+Requirement	boites
+End
+Style Enume_alph
+Category             List
+Margin                Static
+LatexType             Item_Environment
+LatexName             enumerate
+LatexParam      [(a)]
+NextNoIndent          1
+LeftMargin            MMN
+LabelSep              xx
+ItemSep               0.2
+TopSep                0.7
+BottomSep             0.7
+ParSep                0.3
+Align                 Block
+AlignPossible         Block, Left
+LabelType             enumerate
+LabelString           "aaaaaaaa"
+HTMLTag               ul
+HTMLItem              li
+HTMLLabel             NONE
+End
+\end_local_layout
+\language japanese
+\language_package none
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+[四月馬鹿] 非線形分類アルゴリズム「HotPot」を開発しました!
+\end_layout
+
+\begin_layout Standard
+以前 http://ill-identified.hatenablog.com/entry/2018/05/23/233955 において, ロジスティック回帰や
+ SVM といった広く利用される分類アルゴリズムは, いずれも線形な境界面によって分類することを述べた.
+ 一般に, 非線形な分類が可能になるアルゴリズムのほうが, 線形分類よりも複雑な構造に対して性能のよい分類モデルを作成できるが, 一方でアルゴリズムが複雑になっ
+たり, 計算量が非常に多く実用的でないことも多い.
+ そこで私は, 線形分類器より自由度の高い分類アルゴリズム「HotPot」を考案し実装した.
+ 現時点では Python での実装だが, 他の言語での実装も容易なはずである.
+ HotPot 自体の動作には最新の scikit-learn が必要だが, このモジュールは Python での機械学習においてスタンダードと言って良いから,
+ 制約になる場面は極めて限られるはずだ.
+\end_layout
+
+\begin_layout Standard
+この記事では, 全てのソースコードの公開と, アルゴリズムの実演を行う.
+ 冒頭に挙げた記事のように、このアルゴリズムではロジスティック回帰などではできなかった曲面による分類境界を実現している.
+\end_layout
+
+\begin_layout Standard
+以下は使用例である.
+ 分類境界の描画のために, 
+\family typewriter
+mlxtend
+\family default
+ モジュールを使用している点に注意.
+ 
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+import pandas as pd
+\end_layout
+
+\begin_layout Plain Layout
+
+# 実際の境界線
+\end_layout
+
+\begin_layout Plain Layout
+
+logisCurve = lambda x: expit((x - .5) * 10)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# 実演用データ作成
+\end_layout
+
+\begin_layout Plain Layout
+
+np.random.seed(42)
+\end_layout
+
+\begin_layout Plain Layout
+
+n = 1000
+\end_layout
+
+\begin_layout Plain Layout
+
+df = pd.DataFrame({'x': np.random.uniform(low=0, high=1, size=n),
+\end_layout
+
+\begin_layout Plain Layout
+
+                   'y': np.random.uniform(low=0, high=1, size=n)
+\end_layout
+
+\begin_layout Plain Layout
+
+                  }) df['label'] = logisCurve(df['x']) <= df['y']
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# データの散布図
+\end_layout
+
+\begin_layout Plain Layout
+
+from plotnine import (
+\end_layout
+
+\begin_layout Plain Layout
+
+    ggplot,
+\end_layout
+
+\begin_layout Plain Layout
+
+    aes,
+\end_layout
+
+\begin_layout Plain Layout
+
+    geom_point,
+\end_layout
+
+\begin_layout Plain Layout
+
+    stat_function,
+\end_layout
+
+\begin_layout Plain Layout
+
+    scale_color_discrete)
+\end_layout
+
+\begin_layout Plain Layout
+
+g = ggplot(df) + geom_point(aes(x='x', y='y', color='label'))
+\end_layout
+
+\begin_layout Plain Layout
+
+g += scale_color_discrete(breaks=[True, False])
+\end_layout
+
+\begin_layout Plain Layout
+
+g += stat_function(fun=logisCurve, size=1.5)
+\end_layout
+
+\begin_layout Plain Layout
+
+print(g)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# 計画行列
+\end_layout
+
+\begin_layout Plain Layout
+
+X = df[['x', 'y']].values
+\end_layout
+
+\begin_layout Plain Layout
+
+y = df['label'].values
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# 実演結果
+\end_layout
+
+\begin_layout Plain Layout
+
+hotpot.fit(X, y)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+from mlxtend.plotting import plot_decision_regions
+\end_layout
+
+\begin_layout Plain Layout
+
+fig, ax = plt.subplots()
+\end_layout
+
+\begin_layout Plain Layout
+
+plot_decision_regions(X, (y==True)*1, hotpot, ax=ax)
+\end_layout
+
+\begin_layout Plain Layout
+
+ax.set_xlim([0, 1])
+\end_layout
+
+\begin_layout Plain Layout
+
+ax.set_ylim([0, 1])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename hotpot_regions.pdf
+	lyxscale 50
+	width 70text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+HotPot アルゴリズムによる分類領域
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+では, 最後に hotpot がどのように実装されているかを公開する.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+from sklearn.svm import SVC
+\end_layout
+
+\begin_layout Plain Layout
+
+from sklearn.preprocessing import StandardScaler
+\end_layout
+
+\begin_layout Plain Layout
+
+from sklearn.pipeline import Pipeline
+\end_layout
+
+\begin_layout Plain Layout
+
+hotpot = Pipeline([('standardize', StandardScaler()), ('HotPot', SVC())])
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+なお, アルゴリズムの考案にあたって, このツイートが着想の鍵となったため, この場を借りてお礼を申し上げる.
+\end_layout
+
+\begin_layout Standard
+https://twitter.com/sammy_suyama/status/999429919607209985
+\end_layout
+
+\end_body
+\end_document
