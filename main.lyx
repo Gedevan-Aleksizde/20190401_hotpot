@@ -207,225 +207,88 @@ End
 \begin_body
 
 \begin_layout Title
-[四月馬鹿] 非線形分類アルゴリズム「HotPot」を開発しました!
+[四月馬鹿][機械学習] 非線形分類アルゴリズム「HotPot」を新開発しました!
+\end_layout
+
+\begin_layout Section
+概要
+\end_layout
+
+\begin_layout Itemize
+エイプリルフール企画
+\end_layout
+
+\begin_layout Section
+はじめに
 \end_layout
 
 \begin_layout Standard
 以前 http://ill-identified.hatenablog.com/entry/2018/05/23/233955 において, ロジスティック回帰や
- SVM といった広く利用される分類アルゴリズムは, いずれも線形な境界面によって分類することを述べた.
+ SVM といった広く利用される分類アルゴリズムは, いずれも線形な境界面によって分類する性質があることを述べた.
  一般に, 非線形な分類が可能になるアルゴリズムのほうが, 線形分類よりも複雑な構造に対して性能のよい分類モデルを作成できるが, 一方でアルゴリズムが複雑になっ
 たり, 計算量が非常に多く実用的でないことも多い.
  そこで私は, 線形分類器より自由度の高い分類アルゴリズム「HotPot」を考案し実装した.
- 現時点では Python での実装だが, 他の言語での実装も容易なはずである.
- HotPot 自体の動作には最新の scikit-learn が必要だが, このモジュールは Python での機械学習においてスタンダードと言って良いから,
- 制約になる場面は極めて限られるはずだ.
+ 現時点では Python での実装のみだが, 他の言語での実装も容易なはずである.
+ HotPot 自体の動作には最新の scikit-learn((https://scikit-learn.org/stable/)) が必要であるが,
+ scikit-learn は Python での機械学習においてグローバルスタンダードと言って良く, この制約が問題となる場面は極めて限られるはずだ.
 \end_layout
 
 \begin_layout Standard
-この記事では, 全てのソースコードの公開と, アルゴリズムの実演を行う.
+この記事の残りの部分では, 全てのソースコードの公開と, アルゴリズムの実演を行う.
  冒頭に挙げた記事のように、このアルゴリズムではロジスティック回帰などではできなかった曲面による分類境界を実現している.
 \end_layout
 
+\begin_layout Section
+実験
+\end_layout
+
 \begin_layout Standard
-以下は使用例である.
- 分類境界の描画のために, 
-\family typewriter
-mlxtend
-\family default
- モジュールを使用している点に注意.
- 
-\begin_inset listings
-inline false
+実験をおこなった jupyter notebook 全文は以下の github リポジトリにある.
+ ここでは, 結果の要約だけを掲載する.
+\end_layout
+
+\begin_layout Standard
+https://github.com/Gedevan-Aleksizde/20190401_hotpot
+\end_layout
+
+\begin_layout Standard
+HotPot アルゴリズムの性能を比較するため, 代表的な線形分類アルゴリズムであるロジスティック回帰と, 非線形分類アルゴリズムの代表例のなかでもシンプルなガ
+ウシアン・ナイーヴベイズ (GNB) 分類器を比較対象とした.
+ 実験に利用したデータと, 理論上の分類境界をプロットしたのが図1である.
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename data.png
 
-import numpy as np
-\end_layout
+\end_inset
 
-\begin_layout Plain Layout
-
-import pandas as pd
-\end_layout
-
-\begin_layout Plain Layout
-
-# 実際の境界線
-\end_layout
-
-\begin_layout Plain Layout
-
-logisCurve = lambda x: expit((x - .5) * 10)
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
 \begin_layout Plain Layout
-
-# 実演用データ作成
-\end_layout
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
-np.random.seed(42)
-\end_layout
-
-\begin_layout Plain Layout
-
-n = 1000
-\end_layout
-
-\begin_layout Plain Layout
-
-df = pd.DataFrame({'x': np.random.uniform(low=0, high=1, size=n),
-\end_layout
-
-\begin_layout Plain Layout
-
-                   'y': np.random.uniform(low=0, high=1, size=n)
-\end_layout
-
-\begin_layout Plain Layout
-
-                  }) df['label'] = logisCurve(df['x']) <= df['y']
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-# データの散布図
-\end_layout
-
-\begin_layout Plain Layout
-
-from plotnine import (
-\end_layout
-
-\begin_layout Plain Layout
-
-    ggplot,
-\end_layout
-
-\begin_layout Plain Layout
-
-    aes,
-\end_layout
-
-\begin_layout Plain Layout
-
-    geom_point,
-\end_layout
-
-\begin_layout Plain Layout
-
-    stat_function,
-\end_layout
-
-\begin_layout Plain Layout
-
-    scale_color_discrete)
-\end_layout
-
-\begin_layout Plain Layout
-
-g = ggplot(df) + geom_point(aes(x='x', y='y', color='label'))
-\end_layout
-
-\begin_layout Plain Layout
-
-g += scale_color_discrete(breaks=[True, False])
-\end_layout
-
-\begin_layout Plain Layout
-
-g += stat_function(fun=logisCurve, size=1.5)
-\end_layout
-
-\begin_layout Plain Layout
-
-print(g)
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-# 計画行列
-\end_layout
-
-\begin_layout Plain Layout
-
-X = df[['x', 'y']].values
-\end_layout
-
-\begin_layout Plain Layout
-
-y = df['label'].values
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-# 実演結果
-\end_layout
-
-\begin_layout Plain Layout
-
-hotpot.fit(X, y)
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-import matplotlib.pyplot as plt
-\end_layout
-
-\begin_layout Plain Layout
-
-from mlxtend.plotting import plot_decision_regions
-\end_layout
-
-\begin_layout Plain Layout
-
-fig, ax = plt.subplots()
-\end_layout
-
-\begin_layout Plain Layout
-
-plot_decision_regions(X, (y==True)*1, hotpot, ax=ax)
-\end_layout
-
-\begin_layout Plain Layout
-
-ax.set_xlim([0, 1])
-\end_layout
-
-\begin_layout Plain Layout
-
-ax.set_ylim([0, 1])
-\end_layout
-
-\begin_layout Plain Layout
-
-plt.show()
+データと分類境界のプロット
 \end_layout
 
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+図2はそれぞれの分類器の描く分類境界である.
 \end_layout
 
 \begin_layout Standard
@@ -437,7 +300,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename hotpot_regions.pdf
+	filename plot.png
 	lyxscale 50
 	width 70text%
 
@@ -450,7 +313,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-HotPot アルゴリズムによる分類領域
+各アルゴリズムによる分類境界
 \end_layout
 
 \end_inset
@@ -464,7 +327,171 @@ HotPot アルゴリズムによる分類領域
 \end_layout
 
 \begin_layout Standard
+図を一見しても, 他の2つの比較対象と比べ, HotPot アルゴリズムの描く決定境界の HotPot類似指数 (HSI; HotPot Similarity
+ Index) が極めて高く, 見ていると火鍋が食べたくなることがわかる.
+\end_layout
+
+\begin_layout Standard
+また, 表1から分かるように, 対数損失 (log loss) および AUC についても優れたパフォーマンスを示している.
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Logistic
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GNB
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+HotPot
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Log Loss
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.1675
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.2245
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0527
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+AUC
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.9933
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.9702
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.9984
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+各アルゴリズムの精度評価
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+実装
+\end_layout
+
+\begin_layout Standard
 では, 最後に hotpot がどのように実装されているかを公開する.
+ これは極めて単純である.
 \end_layout
 
 \begin_layout Standard
@@ -474,22 +501,32 @@ status open
 
 \begin_layout Plain Layout
 
-from sklearn.svm import SVC
+from sklearn.svm import SVC from sklearn.preprocessing
 \end_layout
 
 \begin_layout Plain Layout
 
-from sklearn.preprocessing import StandardScaler
+import StandardScaler from sklearn.pipeline
 \end_layout
 
 \begin_layout Plain Layout
 
-from sklearn.pipeline import Pipeline
+import Pipeline
 \end_layout
 
 \begin_layout Plain Layout
 
-hotpot = Pipeline([('standardize', StandardScaler()), ('HotPot', SVC())])
+hotpot = Pipeline([('standardize', StandardScaler()),
+\end_layout
+
+\begin_layout Plain Layout
+
+                   ('HotPot', SVC(probability=True, kernel='rbf', degree=1))])
+\end_layout
+
+\begin_layout Plain Layout
+
+hotpot.fit(X, y)
 \end_layout
 
 \end_inset
@@ -497,12 +534,33 @@ hotpot = Pipeline([('standardize', StandardScaler()), ('HotPot', SVC())])
 
 \end_layout
 
+\begin_layout Section
+結論
+\end_layout
+
 \begin_layout Standard
-なお, アルゴリズムの考案にあたって, このツイートが着想の鍵となったため, この場を借りてお礼を申し上げる.
+本記事では, ロジスティック回帰など, 従来広く使われている分類アルゴリズムの欠点を指摘した上で, この欠点が, 線形な境界線しか形成できない,
+ 線形分類アルゴリズムというクラスに属するものであるという事実に由来するものだと示した.
+ その上で, 容易に実装可能な非線形分類アルゴリズムを提案し, 実装と良好な実験結果を掲載することができた.
+ また, HotPot アルゴリズムの持つ高い HotPot 類似性能は, 見るものに火鍋を食べたいと思わせる力があることがわかった.
+\end_layout
+
+\begin_layout Section
+謝辞
+\end_layout
+
+\begin_layout Standard
+本アルゴリズムの考案にあたって, 以下のような記事・言及が着想の鍵となった.
+ この場を借りてお礼を申し上げる.
 \end_layout
 
 \begin_layout Standard
 https://twitter.com/sammy_suyama/status/999429919607209985
+\end_layout
+
+\begin_layout Standard
+https://www.datasciencecentral.com/profiles/blogs/why-logistic-regression-should-b
+e-the-last-thing-you-learn-when-b
 \end_layout
 
 \end_body
