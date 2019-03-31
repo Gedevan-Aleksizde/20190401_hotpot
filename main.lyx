@@ -210,12 +210,30 @@ End
 [四月馬鹿][機械学習] 非線形分類アルゴリズム「HotPot」を新開発しました!
 \end_layout
 
-\begin_layout Section
+\begin_layout Section*
 概要
 \end_layout
 
 \begin_layout Itemize
 エイプリルフール企画
+\end_layout
+
+\begin_layout Section*
+謝辞
+\end_layout
+
+\begin_layout Standard
+本アルゴリズムの考案にあたって, 以下のような記事・言及が着想の鍵となった.
+ この場を借りてお礼を申し上げる.
+\end_layout
+
+\begin_layout Standard
+https://twitter.com/sammy_suyama/status/999429919607209985
+\end_layout
+
+\begin_layout Standard
+https://www.datasciencecentral.com/profiles/blogs/why-logistic-regression-should-b
+e-the-last-thing-you-learn-when-b
 \end_layout
 
 \begin_layout Section
@@ -585,24 +603,6 @@ hotpot.fit(X, y)
  線形分類アルゴリズムというクラスに属するものであるという事実に由来するものだと示した.
  その上で, 容易に実装可能な非線形分類アルゴリズムを提案し, 実装と良好な実験結果を掲載することができた.
  また, HotPot アルゴリズムの持つ高い HotPot 類似性能は, 見るものに火鍋を食べたいと思わせる力があることがわかった.
-\end_layout
-
-\begin_layout Section
-謝辞
-\end_layout
-
-\begin_layout Standard
-本アルゴリズムの考案にあたって, 以下のような記事・言及が着想の鍵となった.
- この場を借りてお礼を申し上げる.
-\end_layout
-
-\begin_layout Standard
-https://twitter.com/sammy_suyama/status/999429919607209985
-\end_layout
-
-\begin_layout Standard
-https://www.datasciencecentral.com/profiles/blogs/why-logistic-regression-should-b
-e-the-last-thing-you-learn-when-b
 \end_layout
 
 \end_body
