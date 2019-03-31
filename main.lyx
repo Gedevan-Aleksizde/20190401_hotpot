@@ -328,7 +328,49 @@ status open
 
 \begin_layout Standard
 図を一見しても, 他の2つの比較対象と比べ, HotPot アルゴリズムの描く決定境界の HotPot類似指数 (HSI; HotPot Similarity
- Index) が極めて高く, 見ていると火鍋が食べたくなることがわかる.
+ Index) が極めて高く, 見ていると火鍋が食べたくなることがわかる (図3).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Hotpod01.jpg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+実際の火鍋の例
+\begin_inset CommandInset href
+LatexCommand href
+name "SojinProject"
+target "https://commons.wikimedia.org/wiki/File:Hotpod01.jpg"
+literal "false"
+
+\end_inset
+
+, CC-BY-SA-4.0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
